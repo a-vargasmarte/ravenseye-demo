@@ -9,7 +9,8 @@ const bodyParser = require("body-parser");
 const employeeRoutes = require("./routes/api/Employees");
 
 // create an express instance and plug in middleware
-const app = express().use(bodyParser.json());
+const app = express();
+app.use(bodyParser.json());
 
 // provide header access to prevent Cors problems
 app.use(function(req, res, next) {
