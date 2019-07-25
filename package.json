@@ -7,8 +7,12 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "client-install": "npm install --prefix client",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "test": "mocha || true",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -20,5 +24,15 @@
   "bugs": {
     "url": "https://github.com/a-vargasmarte/ravenseye-demo/issues"
   },
-  "homepage": "https://github.com/a-vargasmarte/ravenseye-demo#readme"
+  "homepage": "https://github.com/a-vargasmarte/ravenseye-demo#readme",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "concurrently": "^4.1.1",
+    "express": "^4.17.1",
+    "mocha": "^6.2.0",
+    "mongoose": "^5.6.6",
+    "nodemon": "^1.19.1"
+  }
 }
