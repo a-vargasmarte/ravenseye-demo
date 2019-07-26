@@ -2,12 +2,12 @@ import React from "react";
 import { Grommet } from "grommet";
 import { grommet } from "grommet/themes";
 import Header from "./Header/Header";
-
-const Layout = ({ children }) => {
+import Body from "./Body/Body";
+const Layout = (props) => {
   return (
     <Grommet full theme={grommet}>
       <Header />
-      {children}
+      <Body>{props.children}</Body>
     </Grommet>
   );
 };

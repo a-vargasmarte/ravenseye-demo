@@ -35,6 +35,6 @@ mongoose
 // use routes
 app.use("/api/employees", employeeRoutes);
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 5003;
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
