@@ -3,7 +3,7 @@ import { Box, Text, Heading } from "grommet";
 import { Chat } from "grommet-icons";
 
 const Feed = (props) => {
-  let {index, item} = props;
+  let {index, item, title, body, commentSize} = props;
   return (
     <React.Fragment>
       <Box
@@ -21,15 +21,15 @@ const Feed = (props) => {
           Post by: {item.id}
         </Heading>
         <Heading level={3} textAlign="center" truncate={true}>
-          {item.title}
+          {title}
         </Heading>
 
         <Text margin="medium" size="small" weight="bold" color="white">
-          {item.body}
+          {body}
         </Text>
         <Box align="center">
           <Chat color="white" size="large" />
-          <Text>{item.commentSize}</Text>
+          <Text>{commentSize}</Text>
         </Box>
       </Box>
     </React.Fragment>

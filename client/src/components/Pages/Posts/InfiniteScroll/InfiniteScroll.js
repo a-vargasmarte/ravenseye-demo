@@ -32,7 +32,13 @@ class Scroll extends Component {
           onMore={() => console.log("!!! onMore")}
         >
           {(item, index) => (
-            <Feed key={`post${index}`} index={index} item={item} />
+            <Feed
+              key={`post${index}`}
+              index={index}
+              item={item}
+              title={item.title}
+              body={item.body}
+            />
           )}
         </InfiniteScroll>
       </React.Fragment>
