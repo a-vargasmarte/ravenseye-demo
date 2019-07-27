@@ -1,9 +1,20 @@
 import React from "react";
-import { Box, Text, Heading } from "grommet";
-import { Chat } from "grommet-icons";
+import { Box, Text, Heading, Button } from "grommet";
+import { Chat, AddCircle, SubtractCircle, Edit } from "grommet-icons";
+// import { FeedBody } from "./FeedBody/FeedBody";
+const Feed = props => {
+  let {
+    index,
+    item,
+    title,
+    body,
+    commentSize,
+    email,
+    FeedTitle,
+    FeedBody
+  } = props;
+  console.log(window.location.href);
 
-const Feed = (props) => {
-  let {index, item, title, body, commentSize} = props;
   return (
     <React.Fragment>
       <Box
@@ -17,9 +28,7 @@ const Feed = (props) => {
         background={`neutral-${(index % 4) + 1}`}
         animation={{ type: "slideRight", duration: 200 }}
       >
-        <Heading level={4} textAlign="end" margin="none">
-          Post by: {item.id}
-        </Heading>
+        {FeedTitle}
         <Heading level={3} textAlign="center" truncate={true}>
           {title}
         </Heading>
@@ -28,8 +37,7 @@ const Feed = (props) => {
           {body}
         </Text>
         <Box align="center">
-          <Chat color="white" size="large" />
-          <Text>{commentSize}</Text>
+          {FeedBody}
         </Box>
       </Box>
     </React.Fragment>

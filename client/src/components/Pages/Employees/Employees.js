@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import axios from "axios";
 import { InfiniteScroll } from "grommet";
 import Feed from "../Posts/Feed/Feed";
+import FeedTitle from "../Posts/Feed/FeedTitle/FeedTitle";
+import FeedBody from "../Posts/Feed/FeedBody/FeedBody";
 class Employees extends Component {
   state = {
     feed: [],
-    step: 5
+    step: 5,
+    iconColor: ""
   };
 
   componentDidMount = () => {
@@ -19,6 +22,13 @@ class Employees extends Component {
         this.setState({ feed });
       })
       .catch(err => console.log(err));
+  };
+
+  onHover = e => {
+    e.preventDefault();
+    let { iconColor } = this.state;
+    iconColor = "black";
+    this.setState({ iconColor });
   };
   render() {
     let { feed, step } = this.state;
@@ -36,6 +46,8 @@ class Employees extends Component {
               item={item}
               title={item.name}
               body={item.phone}
+              FeedTitle={<FeedTitle item={item} />}
+              FeedBody={<FeedBody email={item.email} />}
             />
           )}
         </InfiniteScroll>
