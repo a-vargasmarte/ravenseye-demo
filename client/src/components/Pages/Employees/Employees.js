@@ -12,6 +12,7 @@ class Employees extends Component {
     iconColor: "",
     selectedID: "",
     value: "",
+    formHeadings: ["name", "position", "email", "phone"],
     employeeForm: {
       name: "",
       position: "",
@@ -67,9 +68,9 @@ class Employees extends Component {
     }
   };
 
-  valueHandler = (e) => {
+  valueHandler = e => {
     console.log(this);
-  }
+  };
 
   editClickHandler = e => {
     e.preventDefault();
@@ -80,6 +81,14 @@ class Employees extends Component {
       .get(`http://localhost:3001/api/employees/${selectedID}`)
       .then(res => {
         console.log(res);
+        let { employeeForm } = this.state;
+
+        employeeForm.name = res.data.employee[0].name;
+        employeeForm.position = res.data.employee[0].position;
+        employeeForm.email = res.data.employee[0].email;
+        employeeForm.phone = res.data.employee[0].phone;
+
+        this.setState({ employeeForm });
       })
       .catch(err => console.log(err));
   };
@@ -142,7 +151,8 @@ class Employees extends Component {
             <EmployeeForm
               submitFormHandler={this.submitFormHandler}
               onChangeHandler={this.onChangeHandler}
-              value={this.valueHandler()}
+              formHeading={this.state.employeeForm}
+              placeholders={this.state.formHeadings}
             />
           </Box>
           <Box direction="column">
