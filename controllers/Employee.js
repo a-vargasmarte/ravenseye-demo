@@ -7,10 +7,20 @@ module.exports = {
       .then(employees => res.json(employees))
       .catch(err => console.log(err));
   },
+  getAEmployee: (req, res) => {
+    Employee.find({ _id: req.params.id })
+      .then(employee => {
+        console.log(employee);
+        res.json({employee})
+      })
+      .catch(err => console.log(err));
+  },
   addAEmployee: (req, res) => {
     const newEmployee = new Employee({
       name: req.body.name,
-      position: req.body.position
+      position: req.body.position,
+      email: req.body.email,
+      phone: req.body.phone
     });
 
     newEmployee
@@ -20,7 +30,8 @@ module.exports = {
   },
   deleteAEmployee: (req, res) => {
     Employee.findById(req.params.id)
-      .then(() => res.json({ success: true }))
+      .then(employee => employee.remove())
+      .then(employee => res.json(employee))
       .catch(err => console.log(err));
   },
   updateEmployee: (req, res) => {

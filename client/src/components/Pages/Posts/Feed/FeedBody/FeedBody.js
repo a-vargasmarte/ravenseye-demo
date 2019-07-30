@@ -3,7 +3,13 @@ import { Box, Text, Button } from "grommet";
 import { SubtractCircle, Edit, Chat } from "grommet-icons";
 
 const FeedBody = props => {
-  let { email, commentSize } = props;
+  let {
+    email,
+    commentSize,
+    editClickHandler,
+    deleteClickHandler,
+    data
+  } = props;
   let body =
     window.location.href === "http://localhost:3000/employees" ? (
       <React.Fragment>
@@ -12,10 +18,10 @@ const FeedBody = props => {
         </Text>
 
         <Box direction="row">
-          <Button margin="medium">
+          <Button margin="medium" onClick={deleteClickHandler} data={data}>
             <SubtractCircle />
           </Button>
-          <Button margin="medium">
+          <Button margin="medium" onClick={editClickHandler} data={data}>
             <Edit />
           </Button>
         </Box>

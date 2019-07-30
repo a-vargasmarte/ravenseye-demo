@@ -20,6 +20,7 @@ app.use(function(req, res, next) {
     accessPermission = "Origin, X-Requested-With, Content-Type, Accept";
   res.header(field, originURL);
   res.header(headerAccess, accessPermission);
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
   next();
 });
 

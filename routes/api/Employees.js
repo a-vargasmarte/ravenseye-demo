@@ -10,6 +10,7 @@ router
 
 router
   .route("/:id")
+  .get(employeeController.getAEmployee)
   .put(employeeController.updateEmployee)
   .delete(employeeController.deleteAEmployee);
 

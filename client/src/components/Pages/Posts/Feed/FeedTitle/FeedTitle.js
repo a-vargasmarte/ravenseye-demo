@@ -1,23 +1,28 @@
 import React from "react";
-import { Heading } from "grommet";
+import { Heading, Text } from "grommet";
 
 const FeedTitle = props => {
-//   console.log(window.location.href);
+  //   console.log(window.location.href);
   let { item } = props;
-  let title =
-    window.location.href === "http://localhost:3000/employees" ? (
-      <React.Fragment>
-        <Heading level={4} textAlign="end" margin="none">
-          Employee ID: {item.id}
-        </Heading>
-      </React.Fragment>
-    ) : (
-      <React.Fragment>
-        <Heading level={4} textAlign="end" margin="none">
-          Post by: {item.id}
-        </Heading>
-      </React.Fragment>
-    );
+  let employeeTitleLabel = "Employee ID: ",
+    postTitleLabel = "Post by: ";
+
+  let title = (
+    <React.Fragment>
+      <Heading level={4} textAlign="end" margin="none" truncate={true}>
+        {window.location.href === "http://localhost:3000/employees" ? (
+          <Text>
+            {employeeTitleLabel} {item._id}
+          </Text>
+        ) : (
+          <Text>
+            {postTitleLabel} {item.id}
+          </Text>
+        )}
+      </Heading>
+    </React.Fragment>
+  );
+
   return title;
 };
 

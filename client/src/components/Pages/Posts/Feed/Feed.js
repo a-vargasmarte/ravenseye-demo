@@ -13,7 +13,6 @@ const Feed = props => {
     FeedTitle,
     FeedBody
   } = props;
-  console.log(window.location.href);
 
   return (
     <React.Fragment>
@@ -36,9 +35,7 @@ const Feed = props => {
         <Text margin="medium" size="small" weight="bold" color="white">
           {body}
         </Text>
-        <Box align="center">
-          {FeedBody}
-        </Box>
+        <Box align="center">{FeedBody}</Box>
       </Box>
     </React.Fragment>
   );

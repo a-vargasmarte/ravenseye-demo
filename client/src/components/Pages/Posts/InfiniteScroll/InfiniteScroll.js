@@ -17,7 +17,7 @@ class Scroll extends Component {
         feed = res.data.map(post => {
           return post;
         });
-        console.log(feed);
+
         this.setState({ feed });
       })
       .catch(err => console.log(err));
