@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { InfiniteScroll, Box } from "grommet";
+import { InfiniteScroll, Box, Button } from "grommet";
+import { Close } from "grommet-icons";
 import Feed from "../Posts/Feed/Feed";
 import FeedTitle from "../Posts/Feed/FeedTitle/FeedTitle";
 import FeedBody from "../Posts/Feed/FeedBody/FeedBody";
@@ -18,7 +19,8 @@ class Employees extends Component {
       position: "",
       email: "",
       phone: ""
-    }
+    },
+    toggleButton: true
   };
 
   componentDidMount = () => {
@@ -74,9 +76,10 @@ class Employees extends Component {
 
   editClickHandler = e => {
     e.preventDefault();
-    let { selectedID, feed } = this.state;
+    let { selectedID, toggleButton } = this.state;
     selectedID = e.currentTarget.getAttribute("data");
-    this.setState({ selectedID });
+    toggleButton = !toggleButton;
+    this.setState({ selectedID: selectedID, toggleButton: toggleButton });
     axios
       .get(`http://localhost:3001/api/employees/${selectedID}`)
       .then(res => {
@@ -141,6 +144,60 @@ class Employees extends Component {
       })
       .catch(err => console.log(err));
   };
+
+  updateHandler = e => {
+    e.preventDefault();
+    let { employeeForm, selectedID } = this.state;
+
+    axios
+      .put(`http://localhost:3001/api/employees/${selectedID}`, employeeForm)
+      .then(res => {
+        console.log(res.data);
+        console.log("updated employee!");
+        let { employeeForm, toggleButton } = this.state;
+        employeeForm.name = "";
+        employeeForm.position = "";
+        employeeForm.email = "";
+        employeeForm.phone = "";
+
+        toggleButton = !toggleButton;
+
+        this.setState({
+          employeeForm: employeeForm,
+          toggleButton: toggleButton
+        });
+        axios
+          .get(`http://localhost:3001/api/employees/`)
+          .then(res => {
+            let { feed } = this.state;
+
+            feed = res.data;
+            this.setState({ feed });
+          })
+          .catch(err => console.log(err));
+      });
+  };
+  cancelUpdateHandler = e => {
+    e.preventDefault();
+    let { toggleButton, employeeForm } = this.state;
+
+    toggleButton = !toggleButton;
+    employeeForm.name = "";
+    employeeForm.position = "";
+    employeeForm.email = "";
+    employeeForm.phone = "";
+    this.setState({ toggleButton: toggleButton, employeeForm: employeeForm });
+  };
+
+  cancelSubmitHandler = e => {
+    e.preventDefault();
+    let { employeeForm } = this.state;
+    employeeForm.name = "";
+    employeeForm.position = "";
+    employeeForm.email = "";
+    employeeForm.phone = "";
+    this.setState({ employeeForm });
+  };
   render() {
     let { feed, step } = this.state;
 
@@ -153,7 +210,38 @@ class Employees extends Component {
               onChangeHandler={this.onChangeHandler}
               formHeading={this.state.employeeForm}
               placeholders={this.state.formHeadings}
-            />
+            >
+              {this.state.toggleButton ? (
+                <React.Fragment>
+                  <Button
+                    type="submit"
+                    label="Submit"
+                    primary
+                    onClick={this.submitFormHandler}
+                  />
+                  <Button
+                    plain={false}
+                    icon={<Close />}
+                    color="neutral-4"
+                    primary
+                    onClick={this.cancelSubmitHandler}
+                  />
+                  <Button label="Update" disabled />
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <Button type="submit" label="Submit" disabled />
+                  <Button
+                    plain={false}
+                    icon={<Close />}
+                    color="neutral-4"
+                    primary
+                    onClick={this.cancelUpdateHandler}
+                  />
+                  <Button label="Update" primary onClick={this.updateHandler} />
+                </React.Fragment>
+              )}
+            </EmployeeForm>
           </Box>
           <Box direction="column">
             <InfiniteScroll

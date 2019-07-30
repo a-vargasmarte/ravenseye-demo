@@ -30,12 +30,7 @@ const EmployeeForm = props => {
         })}
 
         <Box direction="row" justify="between">
-          <Button
-            type="submit"
-            label="Submit"
-            primary
-            onClick={submitFormHandler}
-          />
+          {children}
         </Box>
       </Box>
     </Box>
