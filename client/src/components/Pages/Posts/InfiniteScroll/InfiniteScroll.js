@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { InfiniteScroll } from "grommet";
 import Feed from "../Feed/Feed";
 import axios from "axios";
+import FeedTitle from "../Feed/FeedTitle/FeedTitle";
 
 class Scroll extends Component {
   state = {
@@ -12,6 +13,7 @@ class Scroll extends Component {
     axios
       .get("https://jsonplaceholder.typicode.com/posts")
       .then(res => {
+        console.log(res.data);
         let { feed } = this.state;
         feed = res.data.map(post => {
           return post;
@@ -37,6 +39,7 @@ class Scroll extends Component {
               item={item}
               title={item.title}
               body={item.body}
+              // FeedTitle={<FeedTitle />}
             />
           )}
         </InfiniteScroll>

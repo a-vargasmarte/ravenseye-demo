@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { InfiniteScroll, Box, Button } from "grommet";
-import { Close } from "grommet-icons";
-import Feed from "../Posts/Feed/Feed";
-import FeedTitle from "../Posts/Feed/FeedTitle/FeedTitle";
-import FeedBody from "../Posts/Feed/FeedBody/FeedBody";
+import { InfiniteScroll, Box, Button} from "grommet";
+import { Close, SubtractCircle, Edit } from "grommet-icons";
+import Feed from "../../Layout/Feed/Feed";
+import EmployeeIcons from "../../Layout/EmployeeIcons/EmployeeIcons";
+// import Feed from "../Posts/Feed/Feed";
+// import FeedTitle from "../Posts/Feed/FeedTitle/FeedTitle";
+// import FeedBody from "../Posts/Feed/FeedBody/FeedBody";
 import EmployeeForm from "./EmployeeForm/EmployeeForm";
 class Employees extends Component {
   state = {
@@ -71,8 +73,10 @@ class Employees extends Component {
 
   editClickHandler = e => {
     e.preventDefault();
+    // console.log(e.target.getAttribute("data"));
+    // console.log(this.props.data);
     let { selectedID, toggleButton } = this.state;
-    selectedID = e.currentTarget.getAttribute("data");
+    selectedID = e.target.getAttribute("data");
     toggleButton = !toggleButton;
     this.setState({ selectedID: selectedID, toggleButton: toggleButton });
     axios
@@ -94,7 +98,7 @@ class Employees extends Component {
     e.preventDefault();
 
     let { selectedID, feed } = this.state;
-    selectedID = e.currentTarget.getAttribute("data");
+    selectedID = e.target.getAttribute("data");
     this.setState({ selectedID });
     axios
       .delete(`http://localhost:3001/api/employees/${selectedID}`)
@@ -144,7 +148,7 @@ class Employees extends Component {
     axios
       .put(`http://localhost:3001/api/employees/${selectedID}`, employeeForm)
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         console.log("updated employee!");
         let { employeeForm, toggleButton } = this.state;
         employeeForm.name = "";
@@ -189,6 +193,21 @@ class Employees extends Component {
     employeeForm.email = "";
     employeeForm.phone = "";
     this.setState({ employeeForm });
+  };
+
+  employeeIconsHandler = () => {
+    return (
+      <React.Fragment>
+        <Box direction="row">
+          <Button margin="medium" onClick={this.deleteClickHandler}>
+            <SubtractCircle />
+          </Button>
+          <Button margin="medium" onClick={this.editClickHandler}>
+            <Edit />
+          </Button>
+        </Box>
+      </React.Fragment>
+    );
   };
   render() {
     let { feed, step } = this.state;
@@ -239,6 +258,30 @@ class Employees extends Component {
             <InfiniteScroll
               items={feed}
               step={step}
+              onMore={() => console.log("onMore!!")}
+            >
+              {(item, index) => (
+                <Feed
+                  key={`employee${index}`}
+                  index={index}
+                  item={item}
+                  id={`Employee ID: ${item._id}`}
+                  title={item.name}
+                  body={item.position}
+                  email={item.email}
+                  icons={
+                    <EmployeeIcons
+                      editClickHandler={this.editClickHandler}
+                      deleteClickHandler={this.deleteClickHandler}
+                      data={item._id}
+                    />
+                  }
+                />
+              )}
+            </InfiniteScroll>
+            {/* <InfiniteScroll
+              items={feed}
+              step={step}
               onMore={() => console.log("!!! on More")}
             >
               {(item, index) => (
@@ -259,7 +302,7 @@ class Employees extends Component {
                   }
                 />
               )}
-            </InfiniteScroll>
+            </InfiniteScroll> */}
           </Box>
         </Box>
       </React.Fragment>
