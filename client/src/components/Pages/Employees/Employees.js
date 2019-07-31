@@ -4,9 +4,6 @@ import { InfiniteScroll, Box, Button} from "grommet";
 import { Close, SubtractCircle, Edit } from "grommet-icons";
 import Feed from "../../Layout/Feed/Feed";
 import EmployeeIcons from "../../Layout/EmployeeIcons/EmployeeIcons";
-// import Feed from "../Posts/Feed/Feed";
-// import FeedTitle from "../Posts/Feed/FeedTitle/FeedTitle";
-// import FeedBody from "../Posts/Feed/FeedBody/FeedBody";
 import EmployeeForm from "./EmployeeForm/EmployeeForm";
 class Employees extends Component {
   state = {
