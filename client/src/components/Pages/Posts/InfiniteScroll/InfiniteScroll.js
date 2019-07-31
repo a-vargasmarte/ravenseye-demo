@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { InfiniteScroll, Box, Heading, Text } from "grommet";
-import { Chat } from "grommet-icons";
+import { InfiniteScroll } from "grommet";
 import Feed from "../Feed/Feed";
 import axios from "axios";
 

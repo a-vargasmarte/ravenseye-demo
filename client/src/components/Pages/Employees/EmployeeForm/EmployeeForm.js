@@ -1,23 +1,20 @@
 import React from "react";
 
-import { Box, Button, Form, FormField, TextInput } from "grommet";
+import { Box, TextInput } from "grommet";
 
 const EmployeeForm = props => {
-  let {
-    submitFormHandler,
-    value,
-    onChangeHandler,
-    children,
-    placeholders,
-    formHeading
-  } = props;
+  let { onChangeHandler, children, placeholders, formHeading } = props;
 
   return (
     <Box direction="column">
       <Box direction="column">
-        {placeholders.map(placeholder => {
+        {placeholders.map((placeholder, i) => {
           return (
-            <Box direction="row" margin="xsmall">
+            <Box
+              direction="row"
+              margin="xsmall"
+              key={`input-${placeholder}-${i}`}
+            >
               <TextInput
                 value={formHeading[placeholder]}
                 onChange={onChangeHandler}

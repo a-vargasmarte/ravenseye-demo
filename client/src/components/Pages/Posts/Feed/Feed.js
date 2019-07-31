@@ -1,15 +1,11 @@
 import React from "react";
-import { Box, Text, Heading, Button } from "grommet";
-import { Chat, AddCircle, SubtractCircle, Edit } from "grommet-icons";
-// import { FeedBody } from "./FeedBody/FeedBody";
+import { Box, Text, Heading } from "grommet";
+
 const Feed = props => {
   let {
     index,
-    item,
     title,
     body,
-    commentSize,
-    email,
     FeedTitle,
     FeedBody
   } = props;

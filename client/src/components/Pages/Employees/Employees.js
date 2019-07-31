@@ -27,8 +27,7 @@ class Employees extends Component {
     axios
       .get("http://localhost:3001/api/employees")
       .then(res => {
-        let { feed, step, selectedID } = this.state;
-        console.log(selectedID);
+        let { feed } = this.state;
 
         feed = res.data;
         this.setState({ feed });
@@ -70,10 +69,6 @@ class Employees extends Component {
     }
   };
 
-  valueHandler = e => {
-    console.log(this);
-  };
-
   editClickHandler = e => {
     e.preventDefault();
     let { selectedID, toggleButton } = this.state;
@@ -83,7 +78,7 @@ class Employees extends Component {
     axios
       .get(`http://localhost:3001/api/employees/${selectedID}`)
       .then(res => {
-        console.log(res);
+        // console.log(res);
         let { employeeForm } = this.state;
 
         employeeForm.name = res.data.employee[0].name;
@@ -121,13 +116,11 @@ class Employees extends Component {
   submitFormHandler = e => {
     e.preventDefault();
     let { employeeForm } = this.state;
-    console.log(employeeForm);
-    // let { value } = e;
-    // console.log(value);
+
     axios
       .post("http://localhost:3001/api/employees", employeeForm)
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         console.log("added employee!");
         let { feed, employeeForm } = this.state;
         feed.push(res.data);
@@ -137,10 +130,9 @@ class Employees extends Component {
         employeeForm.email = "";
         employeeForm.phone = "";
 
-        console.log(employeeForm);
+        // console.log(employeeForm);
 
         this.setState({ feed: feed, employeeForm: employeeForm });
-        // console.log(this.state.employeeForm);
       })
       .catch(err => console.log(err));
   };
